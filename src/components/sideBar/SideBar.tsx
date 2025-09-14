@@ -1,6 +1,6 @@
 export const Sidebar = () => {
   return (
-    <aside className="w-80 ml-8 hidden lg:flex flex-col space-y-4">
+    <aside className="w-52 ml-8 hidden lg:flex flex-col space-y-4">
       <div className="bg-gray-200 w-full h-80 rounded-xl flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

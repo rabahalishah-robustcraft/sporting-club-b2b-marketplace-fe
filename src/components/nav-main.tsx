@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Link, useParams } from "react-router-dom";
 
 export function NavMain({
   activeComponent,
@@ -19,29 +20,38 @@ export function NavMain({
     icon?: Icon;
   }[];
 }) {
-  const handleClick = (title: string) => {
-    setActiveComponent(title);
-  };
+  const params = useParams();
+
+  console.log("params: ", params);
+
+  const path = params["*"];
+
+  const activeTab = path.split("/").pop();
+
+  items.map((item) => {
+    console.log("title: ", item.title);
+  });
 
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                tooltip={item.title}
-                className={
-                  item.title === activeComponent
-                    ? "bg-primary text-white rounded-lg p-6 hover:bg-primary/80 hover:text-white"
-                    : ""
-                }
-                onClick={() => handleClick(item.title)}
-              >
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            <Link to={item.url}>
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  className={
+                    item.title.toLowerCase() == activeTab
+                      ? "bg-primary text-white rounded-lg p-6 hover:bg-primary/80 hover:text-white"
+                      : ""
+                  }
+                >
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </Link>
           ))}
         </SidebarMenu>
       </SidebarGroupContent>

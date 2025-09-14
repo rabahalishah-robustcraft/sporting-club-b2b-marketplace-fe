@@ -22,9 +22,11 @@ import { cn } from "@/lib/utils";
 import { Input } from "./../components/input";
 import { Textarea } from "@/components/ui/textarea";
 import { InputFile } from "../components/InputFile";
+import { useNavigate } from "react-router-dom";
 
 export const ClubOnBoardingForm = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
   const totalSteps = 3;
 
   const form = useForm();
@@ -39,6 +41,8 @@ export const ClubOnBoardingForm = () => {
       console.log("FormData: ", formData);
       setStep(0);
       reset();
+
+      navigate("/club/dashboard");
 
       toast.success("Form successfully submitted");
     }

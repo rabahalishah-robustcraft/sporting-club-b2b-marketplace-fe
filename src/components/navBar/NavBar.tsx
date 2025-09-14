@@ -1,9 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { NotificationsDropdown } from "../notification/NotificationsDropdown";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   const dropdownRef = useRef(null);
+
+  const params = useParams();
+
+  const path = params["*"];
+
+  const activeTab = path.split("/")[0];
+
+  const data = {
+    user: {
+      name: "Robbie",
+      email: "m@example.com",
+      avatar: "/avatars/shadcn.jpg",
+    },
+  };
 
   // Close the dropdown if the user clicks outside of it
   useEffect(() => {
@@ -29,13 +46,27 @@ export const NavBar = () => {
         <img
           src="/src/assets/logo/SPORTS_CORP_LOGO.webp"
           alt="Sport Corp Logo"
-          className="h-10 w-auto"
+          className="h-16 w-auto"
         />
       </div>
 
       {/* Right-aligned icons and user profile */}
       <div className="flex items-center space-x-2">
-        <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
+        {(activeTab === "club" || activeTab === "business") && (
+          <Link
+            to={
+              activeTab === "club" ? "/club/onboarding" : "/business/onboarding"
+            }
+          >
+            <button className="bg-[#eebf47]  text-black font-normal py-3 px-8 rounded-md hover:bg-yellow-500 transition duration-300 w-full sm:w-auto">
+              Your Opportunity
+            </button>
+          </Link>
+        )}
+        <button
+          onClick={() => navigate("/messages")}
+          className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
+        >
           <svg
             width="44"
             height="44"
@@ -137,9 +168,44 @@ export const NavBar = () => {
         </div>
 
         <div className="flex items-center space-x-2 mr-4">
-          <div className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden">
-            {/* User profile image placeholder */}
-            <img src="/src/assets/profile/ROBBIE.png" alt="Sport Corp Logo" />
+          <div className="relative" style={{ zIndex: 20 }}>
+            <button
+              className="w-10 h-10 bg-gray-300 rounded-full overflow-hidden focus:outline-none"
+              onClick={() => setProfileDropdownOpen?.((open: boolean) => !open)}
+              type="button"
+              id="profile-menu-button"
+              aria-haspopup="true"
+              aria-expanded={profileDropdownOpen ? "true" : "false"}
+            >
+              <img src="/src/assets/profile/ROBBIE.png" alt="Sport Corp Logo" />
+            </button>
+            {profileDropdownOpen && (
+              <div
+                className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-2 ring-1 ring-black ring-opacity-5"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="profile-menu-button"
+              >
+                <Link
+                  to={
+                    activeTab === "club"
+                      ? "/club/onboarding"
+                      : "/business/onboarding"
+                  }
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  My Profile
+                </Link>
+                <Link
+                  to={"/"}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  role="menuitem"
+                >
+                  Logout
+                </Link>
+              </div>
+            )}
           </div>
           <div className="flex flex-col text-left">
             <span className="text-sm font-semibold">Robbie</span>

@@ -27,9 +27,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { InputFile } from "../components/InputFile";
 import { RadioGroup, RadioGroupItem } from "./../components/radio-group";
 import { Slider } from "./../components/slider";
+import { useNavigate } from "react-router-dom";
 
 export const BusinessOnBoardingForm = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
   const totalSteps = 3;
 
   const form = useForm();
@@ -44,6 +46,8 @@ export const BusinessOnBoardingForm = () => {
       console.log("FormData: ", formData);
       setStep(0);
       reset();
+
+      navigate("/business/dashboard");
 
       toast.success("Form successfully submitted");
     }
@@ -938,7 +942,9 @@ export const BusinessOnBoardingForm = () => {
                         </FormControl>
                         <div className="w-1/2 flex flex-row justify-between">
                           <FormLabel className="">{`5%`}</FormLabel>
-                          <FormLabel className="">{`${value ? value : '5'}%`}</FormLabel>
+                          <FormLabel className="">{`${
+                            value ? value : "5"
+                          }%`}</FormLabel>
                           <FormLabel className="">{`95%`}</FormLabel>
                         </div>
                         <FormMessage />

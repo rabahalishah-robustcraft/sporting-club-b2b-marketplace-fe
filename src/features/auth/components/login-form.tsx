@@ -2,11 +2,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 export function LoginForm({
+  userType,
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const navigate = useNavigate();
+
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col gap-2">
@@ -21,7 +25,10 @@ export function LoginForm({
         <h1 className="text-xl font-semibold">Login</h1>
         <div className="text-sm">
           Don&apos;t have an account?{" "}
-          <a href="#" className="underline underline-offset-4">
+          <a
+            href={userType === "club" ? "/club/signup" : "/business/signup"}
+            className="underline underline-offset-4"
+          >
             Sign up
           </a>
         </div>
@@ -40,7 +47,15 @@ export function LoginForm({
             Forgot your password?
           </a>
         </div>
-        <Button type="submit" className="w-full">
+        <Button
+          onClick={() =>
+            navigate(
+              userType === "club" ? "/club/dashboard" : "/business/dashboard"
+            )
+          }
+          type="submit"
+          className="w-full"
+        >
           Login
         </Button>
       </div>

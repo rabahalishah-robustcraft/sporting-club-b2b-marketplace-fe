@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FilterInput } from "../components/FilterInput";
-import { NavBar } from "@/components/navBar/NavBar";
-import { Sidebar } from "@/components/sideBar/SideBar";
+
 import {
   Select,
   SelectContent,
@@ -34,13 +33,10 @@ export const ClubDashboard = () => {
           id="modal-overlay"
         ></div>
       )}
-      <NavBar />
-      <div className="flex flex-1 p-4 md:p-8">
-        <div className="flex-1 flex flex-col space-y-8">
-          {/* Pass the handler down to the MainContent component */}
-          <MainContent onViewOpportunities={handleViewOpportunities} />
-        </div>
-        <Sidebar />
+
+      <div className="flex-1 flex flex-col p-4">
+        {/* Pass the handler down to the MainContent component */}
+        <MainContent onViewOpportunities={handleViewOpportunities} />
       </div>
 
       {/* Opportunity Slider, conditionally rendered based on state */}

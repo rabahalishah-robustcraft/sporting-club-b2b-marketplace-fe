@@ -30,39 +30,39 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/admin/dashboard",
       icon: IconHome,
     },
     {
       title: "Users",
-      url: "#",
+      url: "/admin/dashboard/users",
       icon: IconUsers,
     },
     {
       title: "Listings",
-      url: "#",
+      url: "/admin/dashboard/listings",
       icon: IconBookmark,
     },
     {
       title: "Messages",
-      url: "#",
+      url: "/admin/dashboard/messages",
       icon: IconMessage,
     },
     {
       title: "Pages",
-      url: "#",
+      url: "/admin/dashboard/pages",
       icon: IconFiles,
     },
     {
       title: "Categories",
-      url: "#",
+      url: "/admin/dashboard/categories",
       icon: IconTags,
     },
   ],
   navSecondary: [
     {
       title: "Logout",
-      url: "#",
+      url: "/admin/login",
       icon: IconLogout,
     },
   ],

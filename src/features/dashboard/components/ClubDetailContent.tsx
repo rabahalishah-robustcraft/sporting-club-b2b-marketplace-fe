@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Mail, Phone, Globe } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 
-const ClubDetailContent = ({ item }) => {
-  console.log("item: ", item);
+const ClubDetailContent = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
