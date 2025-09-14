@@ -25,9 +25,13 @@ import AdminHomeContent from "./features/dashboard/components/AdminHomeContent";
 import ClubDetailContent from "./features/dashboard/components/ClubDetailContent";
 import NotFoundPage from "./pages/NotFoundPage";
 import { useGlobalContext } from "./context";
+import { useGetTest } from "./api/queries";
+import LoadingPage from "./pages/LoadingPage";
 
 function App() {
   const { authToken } = useGlobalContext();
+  const { data: TestData } = useGetTest();
+  console.log("Test Data: ", TestData);
   console.log("AuthToken: ", authToken);
   return (
     <Routes>

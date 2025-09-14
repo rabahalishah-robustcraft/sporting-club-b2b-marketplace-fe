@@ -1,7 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
 
 export const ProtectedRoute = ({ children, isAdminRoute }) => {
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { authToken, isAdmin } = useAuth();
 
   // if (!isAuthenticated || (isAdminRoute && !isAdmin)) {
   if (false) {
