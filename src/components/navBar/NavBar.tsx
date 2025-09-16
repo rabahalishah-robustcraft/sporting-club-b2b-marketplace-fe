@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { NotificationsDropdown } from "../notification/NotificationsDropdown";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useGlobalContext } from "@/context";
 
 export const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const { clearStorage } = useGlobalContext();
   const dropdownRef = useRef(null);
 
   const params = useParams();
@@ -201,6 +203,7 @@ export const NavBar = () => {
                   to={"/"}
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   role="menuitem"
+                  onClick={() => clearStorage}
                 >
                   Logout
                 </Link>

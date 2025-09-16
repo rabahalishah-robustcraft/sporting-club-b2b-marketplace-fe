@@ -12,30 +12,36 @@ declare module '@tanstack/react-query' {
     }
 }
 
+
 export type Credentials = {
-    username: string;
+    email: string;
     password: string;
-    grant_type: 'password';
-    client_id: 'orthanc';
-    scope: 'openid email profile';
 };
 
-export type Auth = {
-    data: {
-        access: string;
-    };
-    response: {
-        data: {
-            detail: string;
-        };
-    };
-};
 
 export const useLogin = () => {
     return useMutation({
         mutationFn: (creds: Credentials) =>
-            axios.post(`${API_URL}/login`, creds, {
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            axios.post(`${API_URL}/auth/login`, creds, {
+                headers: { 'Content-Type': 'application/json' },
+            }),
+    });
+};
+
+export const useSignupBusiness = () => {
+    return useMutation({
+        mutationFn: (creds: Credentials) =>
+            axios.post(`${API_URL}/auth/signup/business`, creds, {
+                headers: { 'Content-Type': 'application/json' },
+            }),
+    });
+};
+
+export const useSignupClub = () => {
+    return useMutation({
+        mutationFn: (creds: Credentials) =>
+            axios.post(`${API_URL}/auth/signup/club`, creds, {
+                headers: { 'Content-Type': 'application/json' },
             }),
     });
 };

@@ -1,16 +1,28 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import useSecureLocalStorage from "secure-local-storage-hook";
-import { AUTH_TOKEN_STORAGE_KEY, USER_DATA_STORAGE_KEY } from "../constants";
+import {
+  AUTH_TOKEN_STORAGE_KEY,
+  IS_ADMIN_STORAGE_KEY,
+  USER_DATA_STORAGE_KEY,
+} from "../constants";
 
 export type AuthToken = string | null;
+export type IsAdmin = boolean;
 
-export type SelectedServer = { id: number; value: string; label: string };
+export type UserInfo = {
+  id: string;
+  email: string;
+  user_type: string;
+  is_profile_completed: boolean;
+} | null;
 
 export type GlobalContextType = {
   authToken: AuthToken;
   setAuthToken?: (authToken: string) => void;
-  userInfo: any;
-  setUserInfo?: (userInfo: any) => void;
+  userInfo: UserInfo;
+  setUserInfo?: (userInfo: UserInfo) => void;
+  isAdmin: boolean;
+  setIsAdmin?: (isAdmin: boolean) => void;
   clearStorage?: () => void;
 };
 
@@ -18,6 +30,7 @@ export type GlobalContextType = {
 const GlobalContext = createContext<GlobalContextType>({
   authToken: null,
   userInfo: null,
+  isAdmin: false,
 });
 
 // Create a provider component
@@ -29,9 +42,14 @@ export const GlobalContextProvider: React.FC<{
     null
   );
 
-  const [userInfo, setUserInfo] = useSecureLocalStorage<any>(
+  const [userInfo, setUserInfo] = useSecureLocalStorage<UserInfo>(
     USER_DATA_STORAGE_KEY,
     null
+  );
+
+  const [isAdmin, setIsAdmin] = useSecureLocalStorage<IsAdmin>(
+    IS_ADMIN_STORAGE_KEY,
+    false
   );
 
   const clearStorage = () => {
@@ -45,6 +63,8 @@ export const GlobalContextProvider: React.FC<{
         setAuthToken,
         userInfo,
         setUserInfo,
+        isAdmin,
+        setIsAdmin,
         clearStorage,
       }}
     >

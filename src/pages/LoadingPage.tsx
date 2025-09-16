@@ -1,8 +1,8 @@
 export type LoadingPageProps = {
-  heading: string;
-  subHeading: string;
+  heading?: string;
+  subHeading?: string;
 };
-export default function LoadingPage({ subHeading, heading }: LoadingPageProps) {
+export const LoadingPage = ({ subHeading, heading }: LoadingPageProps) => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-white">
       {/* Spinner */}
@@ -17,4 +17,6 @@ export default function LoadingPage({ subHeading, heading }: LoadingPageProps) {
       </p>
     </div>
   );
-}
+};
+
+export default LoadingPage;

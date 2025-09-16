@@ -26,10 +26,9 @@ import ClubDetailContent from "./features/dashboard/components/ClubDetailContent
 import NotFoundPage from "./pages/NotFoundPage";
 import { useGlobalContext } from "./context";
 import { useGetTest } from "./api/queries";
-import LoadingPage from "./pages/LoadingPage";
 
 function App() {
-  const { authToken } = useGlobalContext();
+  const { authToken, isAdmin } = useGlobalContext();
   const { data: TestData } = useGetTest();
   console.log("Test Data: ", TestData);
   console.log("AuthToken: ", authToken);
@@ -51,27 +50,33 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="/club/onboarding" element={<ClubOnBoardingForm />} />
         <Route
-          path="/business/onboarding"
+          path="/club/:clubId/onboarding"
+          element={<ClubOnBoardingForm />}
+        />
+        <Route
+          path="/business/:businessId/onboarding"
           element={<BusinessOnBoardingForm />}
         />
       </Route>
 
       <Route
         element={
-          <ProtectedRoute isAdminRoute={false}>
+          <ProtectedRoute isAdminRoute={isAdmin}>
             <UserDashboardLayout />
           </ProtectedRoute>
         }
       >
-        <Route path="/club/dashboard" element={<ClubDashboard />} />
-        <Route path="/business/dashboard" element={<BusinessDashboard />} />
+        <Route path="/club/:clubId/dashboard" element={<ClubDashboard />} />
+        <Route
+          path="/business/:businessId/dashboard"
+          element={<BusinessDashboard />}
+        />
       </Route>
 
       <Route
         element={
-          <ProtectedRoute isAdminRoute={false}>
+          <ProtectedRoute isAdminRoute={isAdmin}>
             <ChatboxLayout />
           </ProtectedRoute>
         }
@@ -82,7 +87,7 @@ function App() {
       {/* Admin Protected Routes with the AdminLayout */}
       <Route
         element={
-          <ProtectedRoute isAdminRoute={true}>
+          <ProtectedRoute isAdminRoute={isAdmin}>
             <AdminDashboardLayout />
           </ProtectedRoute>
         }
